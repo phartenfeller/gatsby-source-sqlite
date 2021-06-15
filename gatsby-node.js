@@ -9,8 +9,6 @@ exports.sourceNodes = async (
   const { fileName, queries } = configOptions;
 
   const queryResults = await queryDb(fileName, queries, reporter);
-  reporter.info(`queryResults => ${JSON.stringify(queryResults)}`);
-
   try {
     const sqlData = queries.map((query, index) =>
       Object.assign({}, query, { __sqlResult: queryResults[index] })

@@ -17,7 +17,6 @@ function getDb(fileName, reporter) {
 }
 
 async function queryRows({ query, db, reporter }) {
-  reporter.info(`Query => ${query}`);
   return new Promise((resolve, reject) => {
     db.all(query, [], (err, rows) => {
       if (err) {
@@ -30,13 +29,12 @@ async function queryRows({ query, db, reporter }) {
 }
 
 async function queryDb(fileName, queries, reporter) {
-  reporter.info(`Start`);
   const db = await getDb(fileName, reporter);
-  reporter.info(`Got DB`);
+
   let promises = queries.map(({ statement }) =>
     queryRows({ query: statement, db, reporter })
   );
-  reporter.info(`Queries Started`);
+
   return Promise.all(promises);
 }
 

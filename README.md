@@ -1,6 +1,6 @@
 # gatsby-source-sqlite
 
-**This is just forked from [malcolm-kee](https://github.com/malcolm-kee)'s awesome [gatsby-source-mysql](https://github.com/malcolm-kee/gatsby-source-mysql) plugin. I just changed the node module and replaced "mysql" with "sqlite" everywhere. So all credits to him!!!  **
+**This is just forked from [malcolm-kee](https://github.com/malcolm-kee)'s awesome [gatsby-source-mysql](https://github.com/malcolm-kee/gatsby-source-mysql) plugin. I just changed query logic and replaced "mysql" with "sqlite" everywhere. So all credits to him!!!**
 
 [![version](https://img.shields.io/npm/v/gatsby-source-sqlite.svg)](https://www.npmjs.com/package/gatsby-source-sqlite) ![license](https://img.shields.io/npm/l/gatsby-source-sqlite.svg)
 
