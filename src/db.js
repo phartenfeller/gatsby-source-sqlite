@@ -1,38 +1,43 @@
-const mysql = require('mysql');
+const sqlite3 = require('sqlite3');
 
-function query(dbConnection, statement, reporter) {
-  return new Promise((fulfill, reject) => {
-    dbConnection.query(statement, (error, results) => {
-      if (error) return reject(error);
+let db = null;
 
-      if (/^call/i.test(statement)) {
-        reporter.info(`stored procedure statments: '${statement}'`);
-        return fulfill(results[0]);
+function getDb(fileName, reporter) {
+  return new Promise((resolve, reject) => {
+    if (db) resolve(db);
+
+    db = new sqlite3.Database(fileName, (err) => {
+      if (err) {
+        reporter.panic(`Error opening DB => ${err.message}`);
+        reject(err);
       }
+    });
+    resolve(db);
+  });
+}
 
-      fulfill(results);
+async function queryRows({ query, db, reporter }) {
+  reporter.info(`Query => ${query}`);
+  return new Promise((resolve, reject) => {
+    db.all(query, [], (err, rows) => {
+      if (err) {
+        reporter.error(`Could net execute Query: "${query}".\nError: ${err.message}`);
+        reject(err);
+      }
+      resolve(rows);
     });
   });
 }
 
-function queryDb(connectionDetails, queries, reporter) {
-  const db = mysql.createConnection(connectionDetails);
-
-  db.connect(err => {
-    if (err) {
-      reporter.panic(`Error establishing db connection`, err);
-    }
-  });
-
-  return Promise.all(queries.map(({ statement }) => query(db, statement, reporter)))
-    .then(queryResults => ({
-      queryResults,
-      db
-    }))
-    .catch(err => {
-      db.end();
-      reporter.error(`Error making queries`, err);
-    });
+async function queryDb(fileName, queries, reporter) {
+  reporter.info(`Start`);
+  const db = await getDb(fileName, reporter);
+  reporter.info(`Got DB`);
+  let promises = queries.map(({ statement }) =>
+    queryRows({ query: statement, db, reporter })
+  );
+  reporter.info(`Queries Started`);
+  return Promise.all(promises);
 }
 
 module.exports = queryDb;

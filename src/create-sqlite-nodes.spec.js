@@ -1,8 +1,8 @@
-const createMysqlNodes = require('./create-mysql-nodes');
+const createSqliteNodes = require('./create-sqlite-nodes');
 
-describe('createMysqlNodes', () => {
+describe('createSqliteNodes', () => {
   it('is a function', () => {
-    expect(typeof createMysqlNodes).toBe('function');
+    expect(typeof createSqliteNodes).toBe('function');
   });
 
   it('will create correct nodes', async () => {
@@ -15,12 +15,12 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { ID: 1, name: 'Kuala Lumpur' },
           { ID: 2, name: 'New York' },
-          { ID: 3, name: 'London' }
-        ]
-      }
+          { ID: 3, name: 'London' },
+        ],
+      },
     ];
 
-    await createMysqlNodes(allSqlResults[0], allSqlResults, { createNode });
+    await createSqliteNodes(allSqlResults[0], allSqlResults, { createNode });
 
     expect(createNode.mock.calls).toMatchSnapshot();
   });
@@ -37,11 +37,11 @@ describe('createMysqlNodes', () => {
           { ID: 2, name: 'New York', countryCode: 'US' },
           { ID: 3, name: 'London', countryCode: 'UK' },
           { ID: 4, name: 'Chicago', countryCode: 'US' },
-          { ID: 5, name: 'Penang', countryCode: 'MY' }
+          { ID: 5, name: 'Penang', countryCode: 'MY' },
         ],
         parentName: 'country',
         foreignKey: 'countryCode',
-        cardinality: 'OneToMany'
+        cardinality: 'OneToMany',
       },
       {
         name: 'country',
@@ -50,12 +50,12 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { Code: 'MY', name: 'Malaysia' },
           { Code: 'US', name: 'United States' },
-          { Code: 'UK', name: 'United Kingdom' }
-        ]
-      }
+          { Code: 'UK', name: 'United Kingdom' },
+        ],
+      },
     ];
 
-    await createMysqlNodes(allSqlResults[0], allSqlResults, { createNode });
+    await createSqliteNodes(allSqlResults[0], allSqlResults, { createNode });
 
     expect(createNode.mock.calls).toMatchSnapshot();
   });
@@ -72,11 +72,11 @@ describe('createMysqlNodes', () => {
           { ID: 2, name: 'New York', countryCode: 'US' },
           { ID: 3, name: 'London', countryCode: 'UK' },
           { ID: 4, name: 'Chicago', countryCode: 'US' },
-          { ID: 5, name: 'Penang', countryCode: 'MY' }
+          { ID: 5, name: 'Penang', countryCode: 'MY' },
         ],
         parentName: 'country',
         foreignKey: 'countryCode',
-        cardinality: 'OneToMany'
+        cardinality: 'OneToMany',
       },
       {
         name: 'country',
@@ -85,12 +85,12 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { Code: 'MY', name: 'Malaysia' },
           { Code: 'US', name: 'United States' },
-          { Code: 'UK', name: 'United Kingdom' }
-        ]
-      }
+          { Code: 'UK', name: 'United Kingdom' },
+        ],
+      },
     ];
 
-    await createMysqlNodes(allSqlResults[1], allSqlResults, { createNode });
+    await createSqliteNodes(allSqlResults[1], allSqlResults, { createNode });
 
     expect(createNode.mock.calls).toMatchSnapshot();
   });
@@ -105,11 +105,11 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { ID: 1, name: 'Kuala Lumpur', countryCode: 'MY' },
           { ID: 2, name: 'Washington, D.C.', countryCode: 'US' },
-          { ID: 3, name: 'London', countryCode: 'UK' }
+          { ID: 3, name: 'London', countryCode: 'UK' },
         ],
         parentName: 'country',
         foreignKey: 'countryCode',
-        cardinality: 'OneToOne'
+        cardinality: 'OneToOne',
       },
       {
         name: 'country',
@@ -118,12 +118,12 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { Code: 'MY', name: 'Malaysia' },
           { Code: 'US', name: 'United States' },
-          { Code: 'UK', name: 'United Kingdom' }
-        ]
-      }
+          { Code: 'UK', name: 'United Kingdom' },
+        ],
+      },
     ];
 
-    await createMysqlNodes(allSqlResults[0], allSqlResults, { createNode });
+    await createSqliteNodes(allSqlResults[0], allSqlResults, { createNode });
 
     expect(createNode.mock.calls).toMatchSnapshot();
   });
@@ -138,11 +138,11 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { ID: 1, name: 'Kuala Lumpur', countryCode: 'MY' },
           { ID: 2, name: 'Washington, D.C.', countryCode: 'US' },
-          { ID: 3, name: 'London', countryCode: 'UK' }
+          { ID: 3, name: 'London', countryCode: 'UK' },
         ],
         parentName: 'country',
         foreignKey: 'countryCode',
-        cardinality: 'OneToOne'
+        cardinality: 'OneToOne',
       },
       {
         name: 'country',
@@ -151,12 +151,12 @@ describe('createMysqlNodes', () => {
         __sqlResult: [
           { Code: 'MY', name: 'Malaysia' },
           { Code: 'US', name: 'United States' },
-          { Code: 'UK', name: 'United Kingdom' }
-        ]
-      }
+          { Code: 'UK', name: 'United Kingdom' },
+        ],
+      },
     ];
 
-    await createMysqlNodes(allSqlResults[1], allSqlResults, { createNode });
+    await createSqliteNodes(allSqlResults[1], allSqlResults, { createNode });
 
     expect(createNode.mock.calls).toMatchSnapshot();
   });

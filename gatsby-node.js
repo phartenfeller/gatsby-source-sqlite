@@ -1,14 +1,15 @@
 const queryDb = require('./src/db');
-const createMysqlNodes = require('./src/create-mysql-nodes');
+const createSqliteNodes = require('./src/create-sqlite-nodes');
 
 exports.sourceNodes = async (
   { actions, store, createNodeId, cache, reporter },
   configOptions
 ) => {
   const { createNode } = actions;
-  const { connectionDetails, queries } = configOptions;
+  const { fileName, queries } = configOptions;
 
-  const { db, queryResults } = await queryDb(connectionDetails, queries, reporter);
+  const queryResults = await queryDb(fileName, queries, reporter);
+  reporter.info(`queryResults => ${JSON.stringify(queryResults)}`);
 
   try {
     const sqlData = queries.map((query, index) =>
@@ -17,19 +18,16 @@ exports.sourceNodes = async (
 
     await Promise.all(
       sqlData.map((sqlResult, _, sqlResults) =>
-        createMysqlNodes(sqlResult, sqlResults, {
+        createSqliteNodes(sqlResult, sqlResults, {
           createNode,
           store,
           createNodeId,
           cache,
-          reporter
+          reporter,
         })
       )
     );
-
-    db.end();
   } catch (e) {
-    reporter.error(`Error while sourcing data with gatsby-source-mysql`, e);
-    db.end();
+    reporter.error(`Error while sourcing data with gatsby-source-sqlite`, e);
   }
 };

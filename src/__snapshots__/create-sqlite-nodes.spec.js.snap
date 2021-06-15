@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createSqliteNodes creates correct node for child entity in one-to-one relationship 1`] = `
+Array [
+  Array [
+    Object {
+      "ID": 1,
+      "children": Array [],
+      "countryCode": "MY",
+      "country___NODE": "sqlite__Country__MY",
+      "id": "sqlite__Countrycapital__1",
+      "internal": Object {
+        "contentDigest": "d3a7b9f840b6fc28c429b69944ccf0c2",
+        "type": "SqliteCountrycapital",
+      },
+      "name": "Kuala Lumpur",
+      "parent": "__SOURCE__",
+      "sqliteId": 1,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 2,
+      "children": Array [],
+      "countryCode": "US",
+      "country___NODE": "sqlite__Country__US",
+      "id": "sqlite__Countrycapital__2",
+      "internal": Object {
+        "contentDigest": "fb77dbbac2567302932bc1ea410a91fb",
+        "type": "SqliteCountrycapital",
+      },
+      "name": "Washington, D.C.",
+      "parent": "__SOURCE__",
+      "sqliteId": 2,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 3,
+      "children": Array [],
+      "countryCode": "UK",
+      "country___NODE": "sqlite__Country__UK",
+      "id": "sqlite__Countrycapital__3",
+      "internal": Object {
+        "contentDigest": "3e87f3fb35066d026b1e85adcf099a2c",
+        "type": "SqliteCountrycapital",
+      },
+      "name": "London",
+      "parent": "__SOURCE__",
+      "sqliteId": 3,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+]
+`;
+
+exports[`createSqliteNodes creates correct node for parent entity in one-to-one relationship 1`] = `
+Array [
+  Array [
+    Object {
+      "Code": "MY",
+      "children": Array [],
+      "countrycapital___NODE": "sqlite__Countrycapital__1",
+      "id": "sqlite__Country__MY",
+      "internal": Object {
+        "contentDigest": "298e7f4869d7129c0dfef8577ecb6bed",
+        "type": "SqliteCountry",
+      },
+      "name": "Malaysia",
+      "parent": "__SOURCE__",
+      "sqliteId": "MY",
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "Code": "US",
+      "children": Array [],
+      "countrycapital___NODE": "sqlite__Countrycapital__2",
+      "id": "sqlite__Country__US",
+      "internal": Object {
+        "contentDigest": "44696ca3ffdc46fc8fc17fe15a5a7ac0",
+        "type": "SqliteCountry",
+      },
+      "name": "United States",
+      "parent": "__SOURCE__",
+      "sqliteId": "US",
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "Code": "UK",
+      "children": Array [],
+      "countrycapital___NODE": "sqlite__Countrycapital__3",
+      "id": "sqlite__Country__UK",
+      "internal": Object {
+        "contentDigest": "d6838ad8e77fd97ae78d7a9f86fc1296",
+        "type": "SqliteCountry",
+      },
+      "name": "United Kingdom",
+      "parent": "__SOURCE__",
+      "sqliteId": "UK",
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+]
+`;
+
+exports[`createSqliteNodes will create correct nodes 1`] = `
+Array [
+  Array [
+    Object {
+      "ID": 1,
+      "children": Array [],
+      "id": "sqlite__City__1",
+      "internal": Object {
+        "contentDigest": "4be68914759d97e56f8719fc105289d7",
+        "type": "SqliteCity",
+      },
+      "name": "Kuala Lumpur",
+      "parent": "__SOURCE__",
+      "sqliteId": 1,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 2,
+      "children": Array [],
+      "id": "sqlite__City__2",
+      "internal": Object {
+        "contentDigest": "699d1ecfbe0bd0faa5a74d630b83d1a3",
+        "type": "SqliteCity",
+      },
+      "name": "New York",
+      "parent": "__SOURCE__",
+      "sqliteId": 2,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 3,
+      "children": Array [],
+      "id": "sqlite__City__3",
+      "internal": Object {
+        "contentDigest": "7c3f38d7c71d3883a8672bab2915c595",
+        "type": "SqliteCity",
+      },
+      "name": "London",
+      "parent": "__SOURCE__",
+      "sqliteId": 3,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+]
+`;
+
+exports[`createSqliteNodes will create correct nodes for child entity in one-to-many relationship 1`] = `
+Array [
+  Array [
+    Object {
+      "ID": 1,
+      "children": Array [],
+      "countryCode": "MY",
+      "country___NODE": "sqlite__Country__MY",
+      "id": "sqlite__City__1",
+      "internal": Object {
+        "contentDigest": "438b76f0d6ae299526696adc77402c48",
+        "type": "SqliteCity",
+      },
+      "name": "Kuala Lumpur",
+      "parent": "__SOURCE__",
+      "sqliteId": 1,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 2,
+      "children": Array [],
+      "countryCode": "US",
+      "country___NODE": "sqlite__Country__US",
+      "id": "sqlite__City__2",
+      "internal": Object {
+        "contentDigest": "d880c1b6a69aee9bb63b152e87451b7b",
+        "type": "SqliteCity",
+      },
+      "name": "New York",
+      "parent": "__SOURCE__",
+      "sqliteId": 2,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 3,
+      "children": Array [],
+      "countryCode": "UK",
+      "country___NODE": "sqlite__Country__UK",
+      "id": "sqlite__City__3",
+      "internal": Object {
+        "contentDigest": "af77fc25612d2fb27d0e0f1692a28985",
+        "type": "SqliteCity",
+      },
+      "name": "London",
+      "parent": "__SOURCE__",
+      "sqliteId": 3,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 4,
+      "children": Array [],
+      "countryCode": "US",
+      "country___NODE": "sqlite__Country__US",
+      "id": "sqlite__City__4",
+      "internal": Object {
+        "contentDigest": "7b7df1b3d67f547e0c6b61284a6fd2e7",
+        "type": "SqliteCity",
+      },
+      "name": "Chicago",
+      "parent": "__SOURCE__",
+      "sqliteId": 4,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "ID": 5,
+      "children": Array [],
+      "countryCode": "MY",
+      "country___NODE": "sqlite__Country__MY",
+      "id": "sqlite__City__5",
+      "internal": Object {
+        "contentDigest": "62faa91fc7f9408235568be7857f57ea",
+        "type": "SqliteCity",
+      },
+      "name": "Penang",
+      "parent": "__SOURCE__",
+      "sqliteId": 5,
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+]
+`;
+
+exports[`createSqliteNodes will create correct nodes for parent entity in one-to-many relationship 1`] = `
+Array [
+  Array [
+    Object {
+      "Code": "MY",
+      "children": Array [],
+      "cities___NODE": Array [
+        "sqlite__City__1",
+        "sqlite__City__5",
+      ],
+      "id": "sqlite__Country__MY",
+      "internal": Object {
+        "contentDigest": "abcf653e27c0a45ae162b3c7cb96028d",
+        "type": "SqliteCountry",
+      },
+      "name": "Malaysia",
+      "parent": "__SOURCE__",
+      "sqliteId": "MY",
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "Code": "US",
+      "children": Array [],
+      "cities___NODE": Array [
+        "sqlite__City__2",
+        "sqlite__City__4",
+      ],
+      "id": "sqlite__Country__US",
+      "internal": Object {
+        "contentDigest": "bdd365c216a399276d061bad33228b20",
+        "type": "SqliteCountry",
+      },
+      "name": "United States",
+      "parent": "__SOURCE__",
+      "sqliteId": "US",
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+  Array [
+    Object {
+      "Code": "UK",
+      "children": Array [],
+      "cities___NODE": Array [
+        "sqlite__City__3",
+      ],
+      "id": "sqlite__Country__UK",
+      "internal": Object {
+        "contentDigest": "f45a411b4ef04e9e5a4970daac9a60d1",
+        "type": "SqliteCountry",
+      },
+      "name": "United Kingdom",
+      "parent": "__SOURCE__",
+      "sqliteId": "UK",
+      "sqliteImages___NODE": Array [],
+    },
+  ],
+]
+`;

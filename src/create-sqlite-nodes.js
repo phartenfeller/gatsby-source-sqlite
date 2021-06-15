@@ -6,7 +6,7 @@ const { chunk } = require('lodash');
 const BATCH_SIZE = 3;
 
 const { createNodeFactory, generateNodeId } = createNodeHelpers({
-  typePrefix: 'mysql'
+  typePrefix: 'sqlite',
 });
 
 function reduceChildFields(childEntities, nodeId) {
@@ -18,11 +18,11 @@ function reduceChildFields(childEntities, nodeId) {
       idFieldName: childIdFieldName,
       foreignKey,
       cardinality = 'OneToMany',
-      __sqlResult
+      __sqlResult,
     }) => {
       const childIds = __sqlResult
-        .filter(child => child[foreignKey] === nodeId)
-        .map(child => generateNodeId(childName, child[childIdFieldName]));
+        .filter((child) => child[foreignKey] === nodeId)
+        .map((child) => generateNodeId(childName, child[childIdFieldName]));
 
       if (cardinality === 'OneToMany') {
         childFields[`${pluralize.plural(childName)}___NODE`] = childIds;
@@ -39,12 +39,12 @@ function mapSqlResults(
   __sqlResult,
   { parentName, foreignKey, childEntities, idFieldName }
 ) {
-  return __sqlResult.map(result => {
+  return __sqlResult.map((result) => {
     const nodeId = result[idFieldName];
     const parentField =
       parentName && foreignKey
         ? {
-            [`${parentName}___NODE`]: generateNodeId(parentName, result[foreignKey])
+            [`${parentName}___NODE`]: generateNodeId(parentName, result[foreignKey]),
           }
         : {};
 
@@ -54,7 +54,7 @@ function mapSqlResults(
       {},
       result,
       {
-        id: nodeId
+        id: nodeId,
       },
       parentField,
       childFields
@@ -62,18 +62,18 @@ function mapSqlResults(
   });
 }
 
-async function createMysqlNode(
+async function createSqliteNode(
   node,
   { name, remoteImageFieldNames },
   { createNode, store, createNodeId, cache, reporter }
 ) {
-  const MySqlNode = createNodeFactory(name);
-  const sqlNode = MySqlNode(node);
+  const SqliteNode = createNodeFactory(name);
+  const sqlNode = SqliteNode(node);
 
   const remoteNodes = await Promise.all(
     remoteImageFieldNames
-      .filter(field => !!node[field])
-      .map(async field => {
+      .filter((field) => !!node[field])
+      .map(async (field) => {
         try {
           return await createRemoteFileNode({
             url: node[field],
@@ -81,7 +81,7 @@ async function createMysqlNode(
             store,
             createNode,
             createNodeId,
-            cache
+            cache,
           });
         } catch (e) {
           if (typeof e === 'string') {
@@ -98,16 +98,16 @@ async function createMysqlNode(
 
   if (remoteImageFieldNames.length === 1) {
     if (imageNodes.length > 0) {
-      sqlNode.mysqlImage___NODE = imageNodes[0].id;
+      sqlNode.sqliteImage___NODE = imageNodes[0].id;
     }
   }
 
-  sqlNode.mysqlImages___NODE = imageNodes.map(imageNode => imageNode.id);
+  sqlNode.sqliteImages___NODE = imageNodes.map((imageNode) => imageNode.id);
 
   await createNode(sqlNode);
 }
 
-async function createMysqlNodes(
+async function createSqliteNodes(
   { name, __sqlResult, idFieldName, parentName, foreignKey, remoteImageFieldNames = [] },
   allSqlResults,
   { createNode, store, createNodeId, cache, reporter }
@@ -117,16 +117,19 @@ async function createMysqlNodes(
   );
 
   if (Array.isArray(__sqlResult)) {
-    const sqlNodesChunks = chunk(mapSqlResults(
-      __sqlResult,
-      { foreignKey, parentName, childEntities, idFieldName },
-      childEntities
-    ), BATCH_SIZE);
+    const sqlNodesChunks = chunk(
+      mapSqlResults(
+        __sqlResult,
+        { foreignKey, parentName, childEntities, idFieldName },
+        childEntities
+      ),
+      BATCH_SIZE
+    );
 
     for (let sqlNodes of sqlNodesChunks) {
       await Promise.all(
-        sqlNodes.map(node =>
-          createMysqlNode(
+        sqlNodes.map((node) =>
+          createSqliteNode(
             node,
             { name, remoteImageFieldNames },
             { createNode, store, createNodeId, cache, reporter }
@@ -137,4 +140,4 @@ async function createMysqlNodes(
   }
 }
 
-module.exports = createMysqlNodes;
+module.exports = createSqliteNodes;

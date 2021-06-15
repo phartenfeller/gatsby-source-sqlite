@@ -1,8 +1,10 @@
-# gatsby-source-mysql
+# gatsby-source-sqlite
 
-[![version](https://img.shields.io/npm/v/gatsby-source-mysql.svg)](https://www.npmjs.com/package/gatsby-source-mysql) ![license](https://img.shields.io/npm/l/gatsby-source-mysql.svg)
+**This is just forked from [malcolm-kee](https://github.com/malcolm-kee)'s awesome [gatsby-source-mysql](https://github.com/malcolm-kee/gatsby-source-mysql) plugin. I just changed the node module and replaced "mysql" with "sqlite" everywhere. So all credits to him!!!  **
 
-Source plugin for pulling data into Gatsby from MySQL database.
+[![version](https://img.shields.io/npm/v/gatsby-source-sqlite.svg)](https://www.npmjs.com/package/gatsby-source-sqlite) ![license](https://img.shields.io/npm/l/gatsby-source-sqlite.svg)
+
+Source plugin for pulling data into Gatsby from a SQLite database file.
 
 ## How to use
 
@@ -11,14 +13,9 @@ Source plugin for pulling data into Gatsby from MySQL database.
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-source-mysql`,
+      resolve: `gatsby-source-sqlite`,
       options: {
-        connectionDetails: {
-          host: 'localhost',
-          user: 'db-username',
-          password: 'db-password',
-          database: 'world'
-        },
+        fileName: './data/mydb.sqlite',
         queries: [
           {
             statement: 'SELECT * FROM country',
@@ -33,7 +30,7 @@ module.exports = {
 };
 ```
 
-And then you can query via GraphQL with the type `allMysql<Name>` where `<Name>` is the `name` for your query.
+And then you can query via GraphQL with the type `allSqlite<Name>` where `<Name>` is the `name` for your query.
 
 Below is a sample query, however, it is probably different from yours as it would dependent on your configuration and your SQL query results.
 
@@ -41,7 +38,7 @@ Use [GraphiQL](https://www.gatsbyjs.org/docs/introducing-graphiql/) to explore t
 
 ```graphql
 query {
-  allMysqlCountry {
+  allSqliteCountry {
     edges {
       node {
         Code
@@ -62,14 +59,9 @@ When you have multiple queries, add another item in the `queries` option with di
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-source-mysql`,
+      resolve: `gatsby-source-sqlite`,
       options: {
-        connectionDetails: {
-          host: 'localhost',
-          user: 'db-username',
-          password: 'db-password',
-          database: 'world'
-        },
+        fileName: './data/mydb.sqlite',
         queries: [
           {
             statement: 'SELECT * FROM country',
@@ -100,14 +92,9 @@ It's possible to join the results of the queries by providing `parentName`, `for
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-source-mysql`,
+      resolve: `gatsby-source-sqlite`,
       options: {
-        connectionDetails: {
-          host: 'localhost',
-          user: 'db-username',
-          password: 'db-password',
-          database: 'world'
-        },
+        fileName: './data/mydb.sqlite',
         queries: [
           {
             statement: 'SELECT * FROM country',
@@ -136,7 +123,7 @@ With the configuration above, you can query a country joined with all the relate
 
 ```graphql
 query {
-  allMysqlCountry {
+  allSqliteCountry {
     edges {
       node {
         Code
@@ -155,7 +142,7 @@ It also works the other way, i.e. you can query the country when getting the cit
 
 ```graphql
 query {
-  allMysqlCity {
+  allSqliteCity {
     edges {
       node {
         Name
@@ -183,14 +170,9 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
-      resolve: `gatsby-source-mysql`,
+      resolve: `gatsby-source-sqlite`,
       options: {
-        connectionDetails: {
-          host: 'localhost',
-          user: 'db-username',
-          password: 'db-password',
-          database: 'world'
-        },
+        fileName: './data/mydb.sqlite',
         queries: [
           {
             statement: 'SELECT * FROM actor',
@@ -216,10 +198,10 @@ import Img from 'gatsby-image';
 export const SqlImage = () => {
   const data = useStaticQuery(graphql`
     {
-      allMysqlActor {
+      allSqliteActor {
         edges {
           node {
-            mysqlImage {
+            SqliteImage {
               childImageSharp {
                 fluid(maxWidth: 300) {
                   ...GatsbyImageSharpFluid
@@ -232,9 +214,9 @@ export const SqlImage = () => {
     }
   `);
 
-  const images = data.allMysqlActor.edges
-    .filter(edge => !!edge.node.mysqlImage)
-    .map(edge => edge.node.mysqlImage.childImageSharp.fluid);
+  const images = data.allSqliteActor.edges
+    .filter(edge => !!edge.node.SqliteImage)
+    .map(edge => edge.node.SqliteImage.childImageSharp.fluid);
 
   return (
     <div>
@@ -246,11 +228,11 @@ export const SqlImage = () => {
 };
 ```
 
-If you have multiple columns with image url, pass down multiple values to `remoteImageFieldNames` and use `mysqlImages` in your graphql query, which will be an array of images.
+If you have multiple columns with image url, pass down multiple values to `remoteImageFieldNames` and use `SqliteImages` in your graphql query, which will be an array of images.
 
 ## Plugin options
 
-- **connectionDetails** (required): options when establishing the connection. Refer to [`mysql` connection options](https://www.npmjs.com/package/mysql#connection-options)
+- **connectionDetails** (required): options when establishing the connection. Refer to [`Sqlite` connection options](https://www.npmjs.com/package/Sqlite#connection-options)
 - **queries** (required): an array of object for your query. Each object could have the following fields:
 
 | Field                   | Required? | Description                                                                                                                                                                                |
@@ -263,6 +245,6 @@ If you have multiple columns with image url, pass down multiple values to `remot
 | `cardinality`           | Optional  | the relationship between the parent and this entity. Possible values: `"OneToMany"`, `"OneToOne"`. Default to `"OneToMany"`. (Note: many-to-many relationship is currently not supported.) |
 | `remoteImageFieldNames` | Optional  | columns that contain image url which you want to download and utilize Gatsby image processing capability.                                                                                  |
 
-[raise-issue]: https://github.com/malcolm-kee/gatsby-source-mysql/issues/new
+[raise-issue]: https://github.com/malcolm-kee/gatsby-source-sqlite/issues/new
 [gatsby-plugin-sharp]: https://www.gatsbyjs.org/packages/gatsby-plugin-sharp/
 [gatsby-transformer-sharp]: https://www.gatsbyjs.org/packages/gatsby-transformer-sharp/
