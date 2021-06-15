@@ -85,8 +85,6 @@ module.exports = {
 
 It's possible to join the results of the queries by providing `parentName`, `foreignKey`, and `cardinality` to the query object.
 
-> Currently only one-to-one and one-to-many relationship are supported. If you have a use case for many-to-many relationship, [raise an issue][raise-issue], and I'll look into it.
-
 ```javascript
 // In your gatsby-config.js
 module.exports = {
@@ -237,8 +235,8 @@ If you have multiple columns with image url, pass down multiple values to `remot
 
 | Field                   | Required? | Description                                                                                                                                                                                |
 | ----------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `statement`             | Required  | the SQL query statement to be executed. Stored procedures are supported, e.g. `'CALL myProcedureThatReturnsResult(1, 1)'`                                                                  |
-| `idFieldName`           | Required  | column that is unique for each record. This column must be returned by the `statement`.                                                                                                    |
+| `statement`             | Required  | the SQL query statement to be executed.                                                                                                                                                    |
+| `idFieldName`           | Required  | column that is unique for each record. This column must be returned by the `statement`. The name `id` is already reserverd and not allowed here!!!                                         |
 | `name`                  | Required  | name for the query. Will impact the value for the graphql type                                                                                                                             |
 | `parentName`            | Optional  | name for the parent entity. In a one-to-many relationship, this field should be specified on the child entity (entity with many records).                                                  |
 | `foreignKey`            | Optional  | foreign key to join the parent entity.                                                                                                                                                     |
