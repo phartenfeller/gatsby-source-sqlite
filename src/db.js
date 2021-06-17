@@ -28,12 +28,22 @@ async function queryRows({ query, db, reporter }) {
   });
 }
 
-async function queryDb(fileName, queries, reporter) {
+async function queryDb({ fileName, queries, reporter, cache, cacheQueryResults }) {
   const db = await getDb(fileName, reporter);
 
-  let promises = queries.map(({ statement }) =>
-    queryRows({ query: statement, db, reporter })
-  );
+  let promises = queries.map(async ({ statement }) => {
+    const cacheKey = `query-${statement}`;
+    reporter.info(`cacheQueryResults = ${cacheQueryResults}`);
+    if (cacheQueryResults) {
+      const cachedRes = await cache.get(cacheKey);
+      reporter.info(`cachedRes = ${!!cachedRes}`);
+      if (cachedRes) return cachedRes;
+    }
+
+    const dbRes = await queryRows({ query: statement, db, reporter });
+    await cache.set(cacheKey, dbRes);
+    return dbRes;
+  });
 
   return Promise.all(promises);
 }

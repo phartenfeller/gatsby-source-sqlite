@@ -16,7 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "gatsby-node-helpers": "^0.3.0",
-    "lodash": "^4.17.15",
     "pluralize": "^8.0.0",
     "sqlite3": "^5.0.2"
   },

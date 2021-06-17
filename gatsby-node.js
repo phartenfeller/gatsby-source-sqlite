@@ -6,22 +6,34 @@ exports.sourceNodes = async (
   configOptions
 ) => {
   const { createNode } = actions;
-  const { fileName, queries } = configOptions;
+  const {
+    fileName,
+    queries,
+    cacheQueryResults = false,
+    cacheTransformationByRowcount = false,
+  } = configOptions;
 
-  const queryResults = await queryDb(fileName, queries, reporter);
+  const queryResults = await queryDb({
+    fileName,
+    queries,
+    reporter,
+    cache,
+    cacheQueryResults,
+  });
   try {
     const sqlData = queries.map((query, index) =>
       Object.assign({}, query, { __sqlResult: queryResults[index] })
     );
 
     await Promise.all(
-      sqlData.map((sqlResult, _, sqlResults) =>
-        createSqliteNodes(sqlResult, sqlResults, {
+      sqlData.map((sqlResult, _, arr) =>
+        createSqliteNodes(sqlResult, arr, {
           createNode,
           store,
           createNodeId,
           cache,
           reporter,
+          cacheTransformationByRowcount,
         })
       )
     );
